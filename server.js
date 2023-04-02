@@ -1,14 +1,26 @@
 const express=require('express');
-const app=express();
-const mysql=require('mysql2');
+const mongoose=require('mongoose');
+const path=require('path');
 const bodyParser=require('body-parser');
 const fs=require('fs');
+const app=express();
 const cors=require('cors');
-require('dotenv').config()
+const cookieParser = require('cookie-parser');
 app.use(express.json());
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:true}));
-const port=process.env.PORT;
+app.use(cookieParser());
+const mysql=require('mysql2');
+
+require('dotenv').config()
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+const dbURI = process.env.DB_URI;
+const port = process.env.PORT || 3001;
+
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then((res)=>console.log("Connected to MongoDB database"))
+.catch((err)=>console.log("Error in connection to MongoDB"))
 
 const conn=mysql.createConnection({
     host:"localhost",
@@ -24,29 +36,12 @@ conn.query("USE sonoo",function(err,result){
     console.log("Using database sonoo");
 });
 
-app.post('/newStudent',(req,res)=>{
-    const id=req.body.id;
-    const name=req.body.name;
-    const email=req.body.email;
-    const sqlInsert=`INSERT INTO students (id,name,email) VALUES ('${id}','${name}','${email}')`;
-    conn.query(sqlInsert,(err,res)=>{
-        if(err) throw err;
-        console.log("Insertion successful");
-        return res;
-    })
+const adminAuthRoutes = require('./routes/adminAuth');
 
-})
-
-app.get('/getStudentByID',(req,res)=>{
-    const id=req.id;
-    const sqlSelect=`SELECT * FROM students WHERE id=${id}`;
-    conn.query(sqlSelect,(err,result)=>{
-        if(err) throw err;
-        console.log(result);
-    });
-});
+app.use('/admin',adminAuthRoutes);
 
 
-app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`);
-});
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+    }
+);
