@@ -2,9 +2,25 @@ const User = require('../models/Admin');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcrypt');
-const auth=require('../middleware/auth')
+const fs = require('fs');
+const path=require('path')
+const mysql=require('mysql2');
+require('dotenv').config()
 // Authentication middleware
 
+const conn=mysql.createConnection({
+  host:"localhost",
+  user:process.env.USER,
+  password:process.env.PASSWORD
+});
+conn.connect((err)=>{
+  if(err) throw err;
+  console.log("Connected to MySQL Server");
+})
+conn.query("USE sonoo",function(err,result){
+  if(err) throw err;
+  console.log("Using database sonoo");
+});
 
 module.exports.signup = (req,res) => {
     const { name, email, password } = req.body;
@@ -100,4 +116,56 @@ module.exports.get_user = async (req, res) => {
     console.error(err.message);
     res.status(500).json({ msg: 'Server error' });
   }
+}
+
+//admin dashboard
+module.exports.dashboard = async (req,res)=>{
+  fs.readFile('./frontend/dashboard.html','utf8',(err,data)=>{
+      if(err){
+          console.log(err);
+          return res.status(500).send('Error reading file');
+      }
+      console.log(req.user.name)
+      const name = req.user.name;
+      // let result = data.replace(/%name%/g, name);
+      conn.query('SELECT COUNT(id) FROM students', (error, results) => {
+        if (error) throw error;
+
+        const count=results[0]['COUNT(id)'];
+        console.log(count);
+        let result = data.replace(/%count%/, count).replace(/%name%/g, name);
+        console.log(result);
+        res.send(result);
+    })
+      // send the modified HTML to the client
+      // res.send(result);
+  })
+}
+
+module.exports.viewStudents = (req, res) => {
+  // Execute the SQL query to retrieve all students
+  conn.query('SELECT * FROM students', (error, results) => {
+    if (error) throw error;
+    // Generate the HTML content with the student data
+    let html = '<table>';
+    html += '<tr><th>ID</th><th>Name</th><th>Department</th><th>Semester</th><th>CPI</th></tr>';
+    results.forEach((student) => {
+      html += `<tr><td>${student.id}</td><td>${student.name}</td><td>${student.dept}</td><td>${student.sem}</td><td>${student.cpi}</td></tr>`;
+    });
+    html += '</table>';
+    // Send the HTML content as the response
+    res.send(html);
+})
+}
+
+module.exports.addStudents = (req, res) => {
+  conn.query(`INSERT INTO students VALUES (${req.body.id}, '${req.body.name}', '${req.body.password}','${req.body.dept}',${req.body.sem},${req.body.cpi})`, (err, result) => {
+    if (err) throw err;
+    console.log(`Inserted student with ID ${req.body.id} and name ${req.body.name}.`);
+    res.send(`Inserted student with ID ${req.body.id} and name ${req.body.name}.`);
+  });
+};
+module.exports.addStudent= (req,res) =>{
+  // console.log(path.join(__dirname, '../frontend/myFile.html'));
+  res.sendFile(path.join(__dirname, '../frontend/addStudent.html'));
 }

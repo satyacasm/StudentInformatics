@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Student</title>
+  </head>
+  <body>
+    <h1>Add Student</h1>
+    <form method="POST" action="/admin/addStudents">
+      <label for="id">ID:</label>
+      <input type="text" name="id" id="id" required>
+      <br>
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+      <br>
+      <label for="dept">Department:</label>
+      <input type="text" name="dept" id="dept" required>
+      <br>
+      <label for="sem">Semester:</label>
+      <input type="number" name="sem" id="sem" required>
+      <br>
+      <label for="cpi">CPI:</label>
+      <input type="number" name="cpi" id="cpi" step="0.01" required>
+      <br>
+      <input type="submit" value="Add Student">
+    </form>
+  </body>
+</html>

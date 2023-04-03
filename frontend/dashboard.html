@@ -8,10 +8,17 @@
 </head>
 <body>
     <h1>Welcome, %name%</h1><br>
-    Login was sucessfull <br>
-    
+    Login was successful <br>
+    Total number of students are %count%
+    <form action="/admin/students" method="GET">
+        <button type="submit">View Students</button>
+    </form>
+    <form action="/admin/addStudent" method="GET">
+        <button type="submit">Add Student</button>
+    </form>
     <form action="/admin/logout" method="GET">
         <button type="submit">Logout</button>
     </form>
+
 </body>
 </html>
