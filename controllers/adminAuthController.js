@@ -75,14 +75,8 @@ module.exports.login = async (req, res) => {
     // Sign JWT token and set cookie
     const token = jwt.sign({ id: user._id }, config.get('jwtsecret'), { expiresIn: '1h' });
     res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
-    res.json({
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email
-      }
-    });
+    res.redirect('/admin/dashboard');
+    
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: 'Server error' });
@@ -92,7 +86,9 @@ module.exports.login = async (req, res) => {
 // Logout controller
 module.exports.logout = (req, res) => {
   res.clearCookie('jwt');
-  res.json({ msg: 'Logged out' });
+//   res.json({ msg: 'Logged out' });
+    // req.flash('Logged Out', 'You are successfully logged out')
+  res.redirect('/');
 }
 
 // Get user controller
