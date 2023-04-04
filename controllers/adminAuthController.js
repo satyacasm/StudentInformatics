@@ -133,9 +133,16 @@ module.exports.dashboard = async (req,res)=>{
 
         const count=results[0]['COUNT(id)'];
         console.log(count);
-        let result = data.replace(/%count%/, count).replace(/%name%/g, name);
-        console.log(result);
-        res.send(result);
+        conn.query('SELECT COUNT(DISTINCT coursecode) AS unique_count FROM course',(er,re)=>{
+          if(er)throw er;
+          const count1=re[0].unique_count;
+          console.log(count1);
+          let result = data.replace(/%count%/, count).replace(/%name%/g, name).replace(/%courses%/g,count1);
+          console.log(result);
+          res.send(result);
+        })
+        
+        
     })
       // send the modified HTML to the client
       // res.send(result);
@@ -169,3 +176,31 @@ module.exports.addStudent= (req,res) =>{
   // console.log(path.join(__dirname, '../frontend/myFile.html'));
   res.sendFile(path.join(__dirname, '../frontend/addStudent.html'));
 }
+module.exports.addCourses = (req,res) =>{
+  conn.query(`INSERT into course VALUES ('${req.body.code}','${req.body.coursename}','${req.body.dept}',${req.body.sem},${req.body.mandatory})`,(err,result)=>{
+    if(err) throw err;
+    console.log(`Inserted course with code ${req.body.code} and name ${req.body.coursename}.`);
+    res.send(`Inserted course with code ${req.body.code} and name ${req.body.coursename}.`);
+  })
+
+}
+module.exports.addCourse= (req,res) =>{
+  // console.log(path.join(__dirname, '../frontend/myFile.html'));
+  res.sendFile(path.join(__dirname, '../frontend/addCourse.html'));
+}
+module.exports.viewCourses = (req, res) => {
+  // Execute the SQL query to retrieve all courses
+  conn.query('SELECT * FROM course', (error, results) => {
+    if (error) throw error;
+    // Generate the HTML content with the course data
+    let html = '<table>';
+    html += '<tr><th>Code</th><th>Name</th><th>Department</th><th>Semester</th><th>Mandatory</th></tr>';
+    results.forEach((course) => {
+      html += `<tr><td>${course.coursecode}</td><td>${course.coursename}</td><td>${course.dept}</td><td>${course.sem}</td><td>${course.mandatory ? 'Yes' : 'No'}</td></tr>`;
+    });
+    html += '</table>';
+    // Send the HTML content as the response
+    res.send(html);
+  });
+};
+

@@ -10,11 +10,18 @@
     <h1>Welcome, %name%</h1><br>
     Login was successful <br>
     Total number of students are %count%
+    Total number of courses are %courses%
     <form action="/admin/students" method="GET">
         <button type="submit">View Students</button>
     </form>
     <form action="/admin/addStudent" method="GET">
         <button type="submit">Add Student</button>
+    </form>
+    <form action="/admin/addCourse" method="GET">
+        <button type="submit">Add Course</button>
+    </form>
+    <form action="/admin/courses" method="GET">
+        <button type="submit">View Courses</button>
     </form>
     <form action="/admin/logout" method="GET">
         <button type="submit">Logout</button>

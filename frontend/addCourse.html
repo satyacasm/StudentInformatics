@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Courses</title>
+</head>
+<body>
+    <form action="/admin/addCourses" method="POST">
+        <label for="code">Course Code:</label>
+        <input type="text" id="code" name="code" required>
+      
+        <label for="coursename">Course Name:</label>
+        <input type="text" id="coursename" name="coursename" required>
+      
+        <label for="dept">Department:</label>
+        <input type="text" id="dept" name="dept" required>
+      
+        <label for="sem">Semester:</label>
+        <input type="number" id="sem" name="sem" required>
+      
+        <label for="mandatory">Mandatory:</label>
+        <input type="checkbox" id="mandatory" name="mandatory" value="true">
+      
+        <button type="submit">Submit</button>
+      </form>
+      
+</body>
+</html>
