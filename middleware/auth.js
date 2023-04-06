@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const User=require('../models/Admin')
 // const adminAuthRoutes = require('./routes/adminAuth');
 module.exports = async function(req, res, next) {
   // Get JWT token from cookie

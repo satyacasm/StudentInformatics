@@ -138,7 +138,7 @@ module.exports.dashboard = async (req,res)=>{
           const count1=re[0].unique_count;
           console.log(count1);
           let result = data.replace(/%count%/, count).replace(/%name%/g, name).replace(/%courses%/g,count1);
-          console.log(result);
+          // console.log(result);
           res.send(result);
         })
         
