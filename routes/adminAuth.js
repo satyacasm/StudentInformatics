@@ -7,5 +7,14 @@ router.post('/register', adminAuthController.signup);
 router.post('/login', adminAuthController.login);
 router.get('/user',auth, adminAuthController.get_user);
 router.get('/logout',auth,adminAuthController.logout);
+router.get('/dashboard',auth,adminAuthController.dashboard);
+router.get('/students',auth,adminAuthController.viewStudents);
+// router.get('/teachers',auth,adminAuthController.viewTeachers);
+router.get('/addStudent',auth,adminAuthController.addStudent)
+router.post('/addStudents',auth,adminAuthController.addStudents)
 
+router.get('/addCourse',auth,adminAuthController.addCourse)
+router.post('/addCourses',auth,adminAuthController.addCourses)
+router.get('/courses',auth,adminAuthController.viewCourses)
 module.exports = router;
+ 
