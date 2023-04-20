@@ -149,20 +149,33 @@ module.exports.dashboard = async (req,res)=>{
   })
 }
 
-module.exports.viewStudents = (req, res) => {
+module.exports.viewStudents = async (req, res) => {
   // Execute the SQL query to retrieve all students
-  conn.query('SELECT * FROM students', (error, results) => {
-    if (error) throw error;
-    // Generate the HTML content with the student data
-    let html = '<table>';
-    html += '<tr><th>ID</th><th>Name</th><th>Department</th><th>Semester</th><th>CPI</th></tr>';
-    results.forEach((student) => {
-      html += `<tr><td>${student.id}</td><td>${student.name}</td><td>${student.dept}</td><td>${student.sem}</td><td>${student.cpi}</td></tr>`;
-    });
-    html += '</table>';
-    // Send the HTML content as the response
-    res.send(html);
-})
+  fs.readFile('./frontend/studentTable.html','utf8',(err,data)=>{
+    if(err){
+        console.log(err);
+        return res.status(500).send('Error reading file');
+    }
+    conn.query('SELECT * FROM students', (error, results) => {
+      if (error) throw error;
+      // Generate the HTML content with the student data
+      let html = '<table>';
+      html += '<thead class="tablehead"><tr><th class="th">ID</th><th class="th th1">Name</th><th class="th">Department</th><th class="th">Semester</th><th class="th">CPI</th></tr></thead>';
+      html+='<tbody class="tablebody">'
+      results.forEach((student) => {
+        // console.log(student)
+        html += `<tr><td class="td">${student.id}</td><td class="td">${student.name}</td><td class="td">${student.dept}</td><td class="td">${student.sem}</td><td class="td">${student.cpi}</td></tr>`;
+        html+=""
+      });
+      html += '</tbody>></table>';
+      // Send the HTML content as the response
+      
+      const result1=data.replace(/%table%/g,html)
+      // console.log(result1)
+      res.send(result1);
+  })
+  })
+  
 }
 
 module.exports.addStudents = (req, res) => {

@@ -26,11 +26,12 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 const adminAuthRoutes = require('./routes/adminAuth');
+const studentAuthRoutes = require('./routes/studentAuthRoutes');
 app.get('/admin/login',(req,res)=>{
     res.sendFile(__dirname +'/frontend/loginpage.html');
 })
 app.use('/admin',adminAuthRoutes);
-
+app.use('/student',studentAuthRoutes);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
