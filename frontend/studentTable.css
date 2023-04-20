@@ -40,7 +40,7 @@
     text-align: center;
     align-items: center;
     padding: 0.1%;
-    width: 70rem;
+    width: 88rem;
 }
 
 .th , .td{
@@ -50,7 +50,11 @@
 }
 
 .th1{
-    padding: rem;
+    width: 15rem;
+}
+
+.th2{
+    width: 22rem;
 }
 
 tr{
