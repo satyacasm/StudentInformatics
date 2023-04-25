@@ -96,6 +96,17 @@ button:hover {
     border-radius: 20rem;
 }
 
+.admin{
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.admin > a{
+    align-items: center;
+    font-size: 2rem;
+    color: rgb(197, 197, 223);
+}
+
 .float-child-element { 
     align-items: center;
     float: left; 
