@@ -40,7 +40,14 @@ input[type=text], input[type=password]{
     padding: 1.5rem 1.8rem;
     box-sizing: border-box;
 }
-
+input[type=number], input[type=password]{
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 1.8rem;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1.8rem;
+    box-sizing: border-box;
+}
 button {
     background-color: #030804;
     color: white;

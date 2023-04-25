@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"  href="singin.css">
+    <link rel="stylesheet" type="text/css"  href="/singin.css">
     <title>Student Login</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 
 
     <div class="inbox">
-        <form action="/admin/login" method="post">
+        <form action="/student/login" method="post">
             <img class="image1" src="https://betamoodle.iiitvadodara.ac.in/pluginfile.php/1/core_admin/logo/0x200/1672126270/LOGO.jpg">
             
             <!-- Headings for the form -->
@@ -27,17 +27,17 @@
             <!-- Main container for all inputs -->
             <div class="mainContainer">
                 <!-- email -->
-                <label for="email">Your email</label>
-                <input type="text" placeholder="Enter email" name="email" required>
+                <label for="id">Your ID</label>
+                <input type="number" placeholder="Enter ID" name="id" required>
     
                 <br><br>
     
                 <!-- Password -->
-                <label for="passsword">Your password</label>
+                <label for="password">Your password</label>
                 <input type="password" placeholder="Enter Password" name="password" required>
                 
                 <div class = "admin">
-                    <a href="loginpage.html">Sign in as Admin</a>
+                    <a href="/admin/login" >Sign in as Admin</a>
                 </div>
                 <!-- Submit button -->
                 <button type="submit">Login</button>

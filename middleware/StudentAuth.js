@@ -1,57 +1,23 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const mysql=require('mysql2');
 
-// const adminAuthRoutes = require('./routes/adminAuth');
-const conn=mysql.createConnection({
-    host:"localhost",
-    user:process.env.USER,
-    password:process.env.PASSWORD
-  });
-  conn.connect((err)=>{
-    if(err) throw err;
-    console.log("Connected to MySQL Server");
-  })
-  conn.query("USE sonoo",function(err,result){
-    if(err) throw err;
-    console.log("Using database sonoo");
-  });
-  
-module.exports = async function(req, res, next) {
-  // Get JWT token from cookie
-  const token = req.cookies.jwt;
+ // Middleware function to authenticate user
+const auth = (req, res, next) => {
+  const token = req.cookies.token; // Get token from cookie
 
-  // Check if JWT token exists
+  // Check if token exists
   if (!token) {
-    res.send('Login krlo pehle');
-    // return res.status(401).redirect('/student/login');
+    return res.status(401).json({ message: 'Authorization failed. Token missing.' });
   }
 
   try {
-    // Verify JWT token
-    const decoded = jwt.verify(token, config.get('jwtsecret'));
-
-    // Add user ID to request object
-    // const user = await User.findById(decoded.id);
-    // if (!user) {
-    //   throw new Error('User not found');
-    // }
-    console.log(decoded);
-    const id=decoded.id;
-    
-    conn.query("SELECT * FROM students WHERE id = ?",[id],async function(err,result){
-        if(err) throw err;
-        if(result.length==0){
-            throw new Error('User not found');
-        }
-    })
-    req.id = id;
-    next();
-// console.log("Decoded"+JSON.stringify(decoded))
-    // Continue to next middleware or route handler
-//     next();
+    // Verify token
+    const decodedToken = jwt.verify(token, config.get('jwtsecret'));
+    req.user = decodedToken.user;
+    next(); // Pass the control to the next middleware
   } catch (err) {
-    console.error(err.message);
-    res.status(401).json({ msg: 'Unauthorized' });
+    res.status(401).json({ message: 'Authorization failed. Invalid token.' });
   }
-};
+}
+
+module.exports = auth;
