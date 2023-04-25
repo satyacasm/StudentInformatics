@@ -4,6 +4,7 @@
 	<title>Student Course Registration</title>
 </head>
 <body>
+	
 	<h2>Register for Courses</h2>
 	<form method="POST" action="/students/registerCourse">
 		<label for="semester">Select Semester:</label>
@@ -31,12 +32,36 @@
 		<label for="mandatory2"><input type="checkbox" name="mandatory" value="Mandatory Course 2" id="mandatory2" checked disabled>Mandatory Course 2</label><br><br>
 
 		<h3>Optional Courses (Select at least 2)</h3>
-		<label for="optional1"><input type="checkbox" name="optional" value="Optional Course 1" id="optional1">Optional Course 1</label><br>
-		<label for="optional2"><input type="checkbox" name="optional" value="Optional Course 2" id="optional2">Optional Course 2</label><br>
-		<label for="optional3"><input type="checkbox" name="optional" value="Optional Course 3" id="optional3">Optional Course 3</label><br>
-		<label for="optional4"><input type="checkbox" name="optional" value="Optional Course 4" id="optional4">Optional Course 4</label><br><br>
-
+		<!-- <form onsubmit="return validateForm()"> -->
+			<label for="optional1"><input type="checkbox" name="optional" value="Optional Course 1" id="optional1">Optional Course 1</label><br>
+			<label for="optional2"><input type="checkbox" name="optional" value="Optional Course 2" id="optional2">Optional Course 2</label><br>
+			<label for="optional3"><input type="checkbox" name="optional" value="Optional Course 3" id="optional3">Optional Course 3</label><br>
+			<label for="optional4"><input type="checkbox" name="optional" value="Optional Course 4" id="optional4">Optional Course 4</label><br><br>
+			<!-- <input type="submit" value="Add">
+		</form> 
+		<script>
+			function validateForm() {
+			  var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+			  if (checkboxes.length < 1) {
+				alert("Please select at least one option.");
+				return false;
+			  }else if(checkboxes.length < 2){
+				alert("Need to select more than one option");
+				return false;
+			  }
+			  return true;
+			}
+		</script> -->
 		<input type="submit" value="Register">
 	</form>
+
+ <!-- <form onsubmit="return validateForm()">
+		<input type="checkbox" name="option1" value="1">Option 1<br>
+		<input type="checkbox" name="option2" value="2">Option 2<br>
+		<input type="checkbox" name="option3" value="3">Option 3<br>
+		<input type="submit" value="Submit">
+	</form>  -->
+
+	
 </body>
 </html>
