@@ -201,19 +201,34 @@ module.exports.addCourse= (req,res) =>{
   // console.log(path.join(__dirname, '../frontend/myFile.html'));
   res.sendFile(path.join(__dirname, '../frontend/addCourse.html'));
 }
-module.exports.viewCourses = (req, res) => {
+module.exports.viewCourses = async (req, res) => {
+  fs.readFile('./frontend/studentTable.html','utf8',(err,data)=>{
+    if(err){
+        console.log(err);
+        return res.status(500).send('Error reading file');
+    }
   // Execute the SQL query to retrieve all courses
+  
   conn.query('SELECT * FROM course', (error, results) => {
     if (error) throw error;
     // Generate the HTML content with the course data
     let html = '<table>';
-    html += '<tr><th>Code</th><th>Name</th><th>Department</th><th>Semester</th><th>Mandatory</th></tr>';
+    html += '<thead class="tablehead"><tr><th class="th th1">Course Code</th><th class="th th2">Name</th><th class="th">Department</th><th class="th">Semester</th><th class="th">Mandatory</th></tr></thead>';
+    html+='<tbody class="tablebody">'
     results.forEach((course) => {
-      html += `<tr><td>${course.coursecode}</td><td>${course.coursename}</td><td>${course.dept}</td><td>${course.sem}</td><td>${course.mandatory ? 'Yes' : 'No'}</td></tr>`;
+      html += `<tr><td class="td">${course.coursecode}</td><td class="td">${course.coursename}</td><td class="td">${course.dept}</td><td class="td">${course.sem}</td><td class="td">${course.mandatory ? 'Yes' : 'No'}</td></tr>`;
     });
-    html += '</table>';
+    html += '</tbody></table>';
     // Send the HTML content as the response
-    res.send(html);
+    // res.send(html);
+    const result1=data.replace(/%table%/g,html)
+      // console.log(result1)
+      
+  res.send(result1);
   });
-};
+  
+})
+}
+
+
 
