@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="dashboard.css">
     <title>Dashboard</title>
 </head>
 
@@ -14,7 +14,6 @@
             <img class="image1" src="https://betamoodle.iiitvadodara.ac.in/pluginfile.php/1/core_admin/logo/0x200/1672126270/LOGO.jpg">
             <h1>Indian Institute of Information Technology Vadodara</h1>
             <div class="Option">
-                <button>%name%</button>
                 <form action="/admin/logout" method="GET"><button class="logout" type="submit">Logout</button></form>
                 <!-- <li><a href="">Logout</a></li> -->
             </div>
@@ -34,6 +33,10 @@
     <div class="Course">
         <form action="/admin/courses" method="GET"><button type="submit">View Courses</button></form>
         <form action="/admin/addCourse" method="GET"><button type="submit">Add Course</button></form>
+    </div>
+
+    <div class="reset">
+        <form action="/student/reset" method="GET"><button type="submit">Reset All</button></form>
     </div>
     
 </body>

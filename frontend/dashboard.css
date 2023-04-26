@@ -3,7 +3,7 @@
     margin: 0%;
     padding: 0%;
     font-family:sans-serif;  
-    background: linear-gradient(to right, #e6e3e0, #0b57bb); 
+    background: #8699b4; 
     color:whitesmoke;
 }
 
@@ -32,13 +32,12 @@
 }
 
 .Option{
-    position: relative;
+    position: absolute;
+    right: 2rem;
     background: none;
 }
 
 .Option form{
-    position: absolute;
-    margin-top: 1%;
     padding: 1rem;
     list-style: none;
     background: none;
@@ -46,6 +45,7 @@
 
 .logout:hover{
     background: #100b0b;
+    cursor: pointer;
 }
 
 .logout{
@@ -64,22 +64,17 @@
     font-size: 2rem;
 }
 
-.Option button:hover {
-    background: #211a53;
-    cursor: pointer;
-}
-
 .head h1{
     font-size: 5rem;
     text-align: center;
-    padding: 5%;
-    background: #7fb5c7;
-    color: rgb(0 0 0 / 80%);
+    padding: 3%;
+    background: #000000;
+    color: rgba(236, 229, 229, 0.8);
 }
 
 .Stcount{
     margin: 0 auto;
-    width: 40%;
+    width: 50%;
     align-items: center;
     margin-top: 5%;
     background: none;
@@ -88,57 +83,57 @@
 
 .Ccount{
     margin: 0 auto;
-    width: 40%;
+    width: 50%;
     align-items: center;
     background: none;
     box-shadow: none;
 }
 
 .Stcount p{
-    padding: 5%;
+    padding: 1.5%;
     box-shadow: none;
-    margin: 0 3rem;
     text-align: center;
-    font-size: 3rem;
-    background: #446ba1;
-    border-radius: 10rem;
-    color: rgb(0 0 0 / 80%);
+    font-size: 2.5rem;
+    background: #195774;
+    border-radius: 5rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .Ccount p{
-    padding: 5%;
+    padding: 1.5%;
     box-shadow: none;
-    margin: 0 3rem;
     text-align: center;
-    font-size: 3rem;
-    background: #446ba1;
-    border-radius: 10rem;
-    color: rgb(0 0 0 / 80%);
+    font-size: 2.5rem;
+    background: #195774;
+    border-radius: 5rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-.Student {
-    padding: 5%;
+.Student , .reset{
+    padding: 2.5%;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: space-around;
 }
 
 .Course {
-    padding: 5%;
+    padding: 2.5%;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: space-around;
 }
 
-.Student button{
-    font-size: 2.6rem;
+.Student button , .reset button{
+    font-size: 2rem;
     color: rgb(0 0 0 / 80%);
     border-radius: 4rem;
-    padding: 1rem;
+    padding: 0.8rem;
     padding-left: 3.5rem;
     padding-right: 3.5rem;
     background: rgb(218 183 201);
 }
 
-.Student button:hover {
+.Student button:hover , .reset button:hover{
     background: #110a42;
     color: rgb(241 237 237 / 80%);
     cursor: pointer;
@@ -146,10 +141,10 @@
 
 
 .Course button{
-    font-size: 2.6rem;
+    font-size: 2rem;
     color: rgb(0 0 0 / 80%);
     border-radius: 4rem;
-    padding: 1rem;
+    padding: 0.8rem;
     padding-left: 3.5rem;
     padding-right: 3.5rem;
     background: rgb(218 183 201);
@@ -161,10 +156,42 @@
     cursor: pointer;
 }
 
-.Student form{
+.Student form , .reset form{
     background: none;
 }
 
 .Course form{
     background: none;
+}
+
+.details{
+    display: flex;
+    justify-content: space-around;
+    padding: 1%;
+}
+
+.A{
+    text-align: center;
+    padding: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-radius: 3rem;
+    background: rgb(194, 88, 88);
+}
+
+.studentDetail {
+    margin: 1%;
+    border: solid;
+    border-color: #3b0f0f;
+}
+
+.U{
+    margin-top: 1%;
+    margin-left: 2%;
+    color: #000000;
+    font-size: 3rem;
+}
+
+.details p{
+    font-size: 2rem;
 }

@@ -4,10 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard
-    </title>
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard</title>
 </head>
+
 <body>
-    <h1>Student Dashboard</h1>
+    <nav>
+        <div class="top">
+            <img class="image1" src="https://betamoodle.iiitvadodara.ac.in/pluginfile.php/1/core_admin/logo/0x200/1672126270/LOGO.jpg">
+            <h1>Indian Institute of Information Technology Vadodara</h1>
+            <div class="Option">
+                <form action="/admin/logout" method="GET"><button class="logout" type="submit">Logout</button></form>
+                <!-- <li><a href="">Logout</a></li> -->
+            </div>
+        </div>
+    </nav>
+    <div class="head"><h1>Welcome, %name%</h1></div>
+    
+    <div class="studentDetail">
+        <p class="U">User Details</p>
+        <div class="details">
+                <p class="A">Name : Vatsal Srivastava</p>
+                <p class="A">Semester : 4</p>
+                <p class="A">CPI : 9.5</p>
+        </div>
+    </div>
+
+    <div class="Stcount">
+        <p>Total number of Registered Courses are %count%</p>
+    </div>
+    <div class="Student">
+        <form action="/admin/students" method="GET"><button type="submit">View Courses</button></form>
+        <form action="/admin/addStudent" method="GET"><button type="submit">Register for Course</button></form>
+    </div>
+    
 </body>
 </html>
