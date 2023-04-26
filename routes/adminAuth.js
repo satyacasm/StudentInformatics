@@ -17,5 +17,7 @@ router.get('/addCourse',auth,adminAuthController.addCourse)
 router.post('/addCourses',auth,adminAuthController.addCourses)
 router.get('/courses',auth,adminAuthController.viewCourses)
 router.get('/reset',auth,adminAuthController.reset)
+router.post('/updateStudent',auth,adminAuthController.updateStudent)
+router.get('/update',auth,adminAuthController.sendUpdateStudent)
 module.exports = router;
  
