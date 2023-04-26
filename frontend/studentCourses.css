@@ -4,6 +4,7 @@
     padding: 0%;
     font-family:sans-serif;  
     color:whitesmoke;
+    background: #8699b4; 
 }
 
 .top{
@@ -14,7 +15,7 @@
     min-height: 2rem;
     align-items: center;
     width: 8rem ,;
-    background: rgb(240, 238, 235);
+    background: rgb(255, 255, 255);
 }
 
 .image1{
@@ -32,32 +33,26 @@
     background: none;
 }
 
-.table{
-    background-color: rgb(54, 53, 51);
-    display: flex;
-    margin: auto;
+h2{
+    font-size: 4rem;
     margin-top: 2%;
+    color: black;
     text-align: center;
-    align-items: center;
-    padding: 0.1%;
-    width: 88rem;
 }
 
-.th , .td{
+.View{
+    border: solid;
+    height: 50vh;
+    background: none;
+    border-color: black;
+    margin: 5%;
+    margin-top: 3%;
+    background-color: aliceblue;
+}
+
+div li{
+    background-color: aliceblue;
     font-size: 2rem;
-    color: aliceblue;
-    padding: 2rem;
-}
-
-.th1{
-    width: 15rem;
-}
-
-.th2{
-    width: 22rem;
-}
-
-tr{
-    background-color: rgb(0, 0, 0);
-    justify-content: space-around;
+    color: black;
+    padding: 1%;
 }
