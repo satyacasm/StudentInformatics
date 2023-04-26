@@ -27,7 +27,11 @@
       
         <div class="Mandt">
             <label for="mandatory">Mandatory:</label><br>
-            <input type="checkbox" id="mandatory" name="mandatory" value="true"><br><br>
+            <input type="radio" id="mandatory_yes" name="mandatory" value="true" required>
+            <label for="mandatory_yes">Yes</label><br>
+            <input type="radio" id="mandatory_no" name="mandatory" value="false" required>
+            <label for="mandatory_no">No</label><br><br>
+            
         </div>
         <button type="submit" id="submit">Submit</button>
       </form>

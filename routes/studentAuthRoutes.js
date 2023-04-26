@@ -8,5 +8,6 @@ router.post('/login',studentAuthController.login);
 router.get('/login',studentAuthController.loginPage);
 router.get('/dashboard',StudentAuth,studentAuthController.studentDashboard)
 router.get('/courseRegister',StudentAuth ,studentAuthController.courseRegister)
+router.post('/registerCourse',StudentAuth,studentAuthController.registerCourse)
 router.get('/logout',StudentAuth,studentAuthController.logout)
 module.exports=router;

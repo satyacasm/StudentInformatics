@@ -13,7 +13,8 @@ const auth = (req, res, next) => {
   try {
     // Verify token
     const decodedToken = jwt.verify(token, config.get('jwtsecret'));
-    req.user = decodedToken.user;
+    req.user = decodedToken;
+    // console.log(req.user);
     next(); // Pass the control to the next middleware
   } catch (err) {
     res.status(401).json({ message: 'Authorization failed. Invalid token.' });
