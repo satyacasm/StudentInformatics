@@ -230,5 +230,12 @@ module.exports.viewCourses = async (req, res) => {
 })
 }
 
+module.exports.reset = (req,res)=>{
+  conn.query('DELETE FROM reg_courses',(err,result)=>{
+    if(err) throw err;
+    console.log('Deleted all students');
+    res.send('Deleted all students');
+  })
+}
 
 
