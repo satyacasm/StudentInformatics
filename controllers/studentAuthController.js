@@ -126,12 +126,71 @@ module.exports.logout = (req, res) => {
   res.redirect("/student/login");
 }
 
-module.exports.studentDashboard = (req,res)=>{
-    fs.readFile('./frontend/studentDashboard.html','utf-8',(err,data)=>{
-        if(err){
-            console.log(err);
-            return res.status(500).send('Error reading file');
+module.exports.studentDashboard = (req, res) => {
+  const userId = req.user.id;
+  const htmlFilePath = './frontend/studentDashboard.html';
+  const sql = `SELECT * FROM students WHERE id = ${userId}`;
+  const sql2 = `SELECT COUNT(*) as courseCount FROM reg_courses WHERE id = ${userId}`;
+
+  conn.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send('Error retrieving student data from the database.');
+    }
+
+    if (result.length === 0) {
+      return res.status(404).send('Student not found.');
+    }
+
+    const studentData = result[0];
+
+    conn.query(sql2, (err2, result2) => {
+      if (err2) {
+        console.log(err2);
+        return res.status(500).send('Error retrieving course count from the database.');
+      }
+
+      const courseCount = result2[0].courseCount;
+
+      fs.readFile(htmlFilePath, 'utf-8', (err, data) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send('Error reading HTML file.');
         }
-        res.send(data);
-    })
-}
+
+        const modifiedData = data
+          .replace(/%name%/g, studentData.name)
+          .replace(/%sem%/g, studentData.sem)
+          .replace(/%cpi%/g, studentData.cpi)
+          .replace(/%course%/g, courseCount);
+
+        res.send(modifiedData);
+      });
+    });
+  });
+};
+
+module.exports.getStudentCourses = (req, res) => {
+  const studentId = req.user.id;
+  const deptQuery = `SELECT dept FROM students WHERE id=${studentId}`;
+  conn.query(deptQuery, (deptError, deptResult) => {
+    if (deptError) throw deptError;
+
+    const dept = deptResult[0].dept;
+    const coursesQuery = `SELECT coursecode, coursename FROM course WHERE dept='${dept}' AND coursecode IN (SELECT coursecode FROM reg_courses WHERE id=${studentId})`;
+
+    conn.query(coursesQuery, (error, result) => {
+      if (error) throw error;
+
+      let html = "";
+      result.forEach((course) => {
+        html += `<li>${course.coursecode} - ${course.coursename}</li>`;
+      });
+
+      const template = fs.readFileSync("./frontend/studentCourses.html", "utf-8");
+      const output = template.replace(/%courses%/g, html);
+      res.send(output);
+    });
+  });
+};
+

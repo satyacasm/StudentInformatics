@@ -7,17 +7,20 @@ const auth = (req, res, next) => {
 
   // Check if token exists
   if (!token) {
-    return res.status(401).json({ message: 'Authorization failed. Token missing.' });
+    return res.status(401).redirect('/student/login');
   }
 
-  try {
+
+  try{
     // Verify token
     const decodedToken = jwt.verify(token, config.get('jwtsecret'));
     req.user = decodedToken;
     // console.log(req.user);
     next(); // Pass the control to the next middleware
-  } catch (err) {
-    res.status(401).json({ message: 'Authorization failed. Invalid token.' });
+  }
+  catch(err){
+    console.error(err.message);
+    res.status(401).json({ msg: 'Unauthorized' });
   }
 }
 

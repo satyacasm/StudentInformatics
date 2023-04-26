@@ -10,4 +10,5 @@ router.get('/dashboard',StudentAuth,studentAuthController.studentDashboard)
 router.get('/courseRegister',StudentAuth ,studentAuthController.courseRegister)
 router.post('/registerCourse',StudentAuth,studentAuthController.registerCourse)
 router.get('/logout',StudentAuth,studentAuthController.logout)
+router.get('/courses',auth,studentAuthController.getStudentCourses)
 module.exports=router;

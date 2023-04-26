@@ -230,5 +230,27 @@ module.exports.viewCourses = async (req, res) => {
 })
 }
 
+module.exports.reset = (req,res)=>{
+  conn.query('DELETE FROM reg_courses',(err,result)=>{
+    if(err) throw err;
+    console.log('Deleted all students');
+    res.send('Deleted all students');
+  })
+}
 
+module.exports.updateStudent = (req, res) => {
+  const { id, sem, cpi } = req.body;
+  const sql = `UPDATE students SET sem = ?, cpi = ? WHERE id = ?`;
+  conn.query(sql, [sem, cpi, id], (error, result) => {
+    if (error) throw error;
+    if (result.affectedRows === 0) {
+      return res.status(404).send(`No student found with id ${id}`);
+    }
+    res.send(`Student with id ${id} has been updated`);
+  });
+};
 
+module.exports.sendUpdateStudent= (req,res) =>{
+  // console.log(path.join(__dirname, '../frontend/myFile.html'));
+  res.sendFile(path.join(__dirname, '../frontend/updateStudent.html'));
+}
