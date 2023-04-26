@@ -73,7 +73,7 @@ module.exports.courseRegister = (req,res)=>{
             // console.log(result);
             let html='';
             result.forEach((course) => {
-              html+=`<label for="mandatory"><input type="checkbox" name="courses" value="${course.coursecode}" checked disabled>${course.coursename}</input></label><br></br>`;
+              html+=`<label class="OP" for="mandatory"><input type="checkbox" name="courses" value="${course.coursecode}" checked disabled>${course.coursename}</input></label><br></br>`;
               html+=`<input type="hidden" name="courses" value="${course.coursecode}">`
             })
             const ans1=data.replace(/%mandatory%/g,html);
@@ -81,7 +81,7 @@ module.exports.courseRegister = (req,res)=>{
                 if(error1) throw error1;
                 let html1='';
                 result1.forEach((course) => {
-                  html1+=`<label for="optional"><input type="checkbox" name="courses" value="${course.coursecode}" checked>${course.coursename}</input></label><br></br>`;
+                  html1+=`<label class="OP" for="optional"><input type="checkbox" name="courses" value="${course.coursecode}" checked>${course.coursename}</input></label><br></br>`;
                 })
 
                 const ans2=ans1.replace(/%nonmandatory%/g,html1);
