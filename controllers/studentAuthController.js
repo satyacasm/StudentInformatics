@@ -25,7 +25,7 @@ module.exports.login = (req, res) => {
   // Check if the user exists in the database
   const id = req.body.id;
   const password = req.body.password;
-  console.log(req.body); 
+  // console.log(req.body); 
   conn.query(`SELECT * FROM students WHERE id = '${id}' AND password = '${password}'`, (err, results) => {
     if (err) throw err;
 
@@ -52,6 +52,7 @@ module.exports.studentDashboard = (req,res)=>{
             console.log(err);
             return res.status(500).send('Error reading file');
         }
+        console.log(req.user);
         res.send(data);
     })
 }
@@ -61,10 +62,38 @@ module.exports.courseRegister = (req,res)=>{
         if(err){
             console.log(err);
             return res.status(500).send('Error reading file');
+            // conn.query(`SELECT * FROM STUDENTS WHERE sem=`)
+            
         }
-        res.send(data);
+        console.log(req.body);
+        conn.query(`select * from course where sem=(select sem from students where id=${req.user.id}) and dept=(select dept from students where id=${req.user.id} and mandatory=1)`,(error,result)=>{
+            if(error) throw error;
+            // console.log(result);
+            let html='';
+            result.forEach((course) => {
+              html+=`<label for="mandatory"><input type="checkbox" name="mandatory" value="${course.coursecode}" checked disabled>${course.coursename}</input></label><br></br>`;
+            })
+            const ans1=data.replace(/%mandatory%/g,html);
+            conn.query(`select * from course where sem=(select sem from students where id=${req.user.id}) and dept=(select dept from students where id=${req.user.id} and mandatory=0)`,(error1,result1)=>{
+                if(error1) throw error1;
+                let html1='';
+                result1.forEach((course) => {
+                  html1+=`<label for="optional"><input type="checkbox" name="optional" value="${course.coursecode}" checked disabled>${course.coursename}</input></label><br></br>`;
+                })
+
+                const ans2=ans1.replace(/%nonmandatory%/g,html1);
+                console.log(ans2);
+                res.send(ans2);
+            });
+        })
+        console.log(req.user);
+        // res.send(data);
     })
 }
+
+// module.students.registerInCourse = (req,res)=>{
+
+// }
 module.exports.loginPage = async (req,res) => {
   fs.readFile('./frontend/studentLogin.html','utf8',(err,data)=>{
    res.send(data);
