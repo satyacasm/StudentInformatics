@@ -10,7 +10,9 @@ require('dotenv').config()
 const conn=mysql.createConnection({
   host:"localhost",
   user:process.env.USER,
-  password:process.env.PASSWORD
+  password:process.env.PASSWORD,
+  
+  multipleStatements: true // enable multiple statements
 });
 conn.connect((err)=>{
   if(err) throw err;
@@ -71,15 +73,15 @@ module.exports.courseRegister = (req,res)=>{
             // console.log(result);
             let html='';
             result.forEach((course) => {
-              html+=`<label for="mandatory"><input type="checkbox" name="mandatory" value="${course.coursecode}" checked disabled>${course.coursename}</input></label><br></br>`;
-              html+=`<input type="hidden" name="mandatory" value="${course.coursecode}">`
+              html+=`<label for="mandatory"><input type="checkbox" name="courses" value="${course.coursecode}" checked disabled>${course.coursename}</input></label><br></br>`;
+              html+=`<input type="hidden" name="courses" value="${course.coursecode}">`
             })
             const ans1=data.replace(/%mandatory%/g,html);
             conn.query(`select * from course where sem=(select sem from students where id=${req.user.id}) and dept=(select dept from students where id=${req.user.id} and mandatory=0)`,(error1,result1)=>{
                 if(error1) throw error1;
                 let html1='';
                 result1.forEach((course) => {
-                  html1+=`<label for="optional"><input type="checkbox" name="optional" value="${course.coursecode}" checked disabled>${course.coursename}</input></label><br></br>`;
+                  html1+=`<label for="optional"><input type="checkbox" name="courses" value="${course.coursecode}" checked>${course.coursename}</input></label><br></br>`;
                 })
 
                 const ans2=ans1.replace(/%nonmandatory%/g,html1);
@@ -92,10 +94,28 @@ module.exports.courseRegister = (req,res)=>{
     })
 }
 
-module.exports.registerCourse = (req,res)=>{
-  console.log(req.body);
-  res.send(req.body)
-}
+module.exports.registerCourse = (req, res) => {
+  const courseCodes = req.body.courses; // assuming the course codes are passed in the 'courses' array in the request body
+  const studentId = req.user.id; // assuming the student ID is stored in req.user.id
+
+  const insertQueries = courseCodes.map(courseCode => {
+    return `INSERT INTO reg_courses VALUES(${studentId},'${courseCode}')`;
+  });
+
+  // join the insert queries into a single string
+  let sql = insertQueries.join(";");
+  sql+=";";
+// console.log(sql);
+  conn.query(sql, (error, result) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).send("Error registering courses");
+    }
+    // console.log(result);
+    res.send("Courses registered successfully");
+  });
+};
+
 module.exports.loginPage = async (req,res) => {
   fs.readFile('./frontend/studentLogin.html','utf8',(err,data)=>{
    res.send(data);
