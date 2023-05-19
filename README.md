@@ -21,3 +21,8 @@ This is a student registration system designed for an institute using MySQL, Nod
 - HTML
 - CSS
 
+
+Deployed at http://13.200.50.201:3000/ 
+Admin credentials=>
+  email: xyz@example.com
+  password: 12345678
