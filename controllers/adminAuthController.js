@@ -9,7 +9,7 @@ require('dotenv').config()
 // Authentication middleware
 
 const conn=mysql.createConnection({
-  host:"sql12.freemysqlhosting.net",
+  host:"localhost",
   user:process.env.USER,
   password:process.env.PASSWORD
 });
@@ -17,7 +17,7 @@ conn.connect((err)=>{
   if(err) throw err;
   console.log("Connected to MySQL Server");
 })
-conn.query("USE sql12614745",function(err,result){
+conn.query("USE sonoo",function(err,result){
   if(err) throw err;
   console.log("Using database sonoo");
 });
