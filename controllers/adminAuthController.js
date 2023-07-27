@@ -8,19 +8,11 @@ const mysql=require('mysql2');
 require('dotenv').config()
 // Authentication middleware
 
-const conn=mysql.createConnection({
-  host:"localhost",
-  user:process.env.USER,
-  password:process.env.PASSWORD
-});
+const conn=mysql.createConnection(process.env.DATABASE_URL);
 conn.connect((err)=>{
   if(err) throw err;
-  console.log("Connected to MySQL Server");
+  console.log("Connected to MySQL PlanetScale Server");
 })
-conn.query("USE sonoo",function(err,result){
-  if(err) throw err;
-  console.log("Using database sonoo");
-});
 
 module.exports.signup = (req,res) => {
     const { name, email, password } = req.body;
