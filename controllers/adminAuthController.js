@@ -11,12 +11,8 @@ require('dotenv').config()
 const conn=mysql.createConnection(process.env.DATABASE_URL);
 conn.connect((err)=>{
   if(err) throw err;
-  console.log("Connected to MySQL Server");
+  console.log("Connected to MySQL PlanetScale Server");
 })
-conn.query("USE dedsec",function(err,result){
-  if(err) throw err;
-  console.log("Using database dedsec");
-});
 
 module.exports.signup = (req,res) => {
     const { name, email, password } = req.body;
