@@ -13,9 +13,9 @@ conn.connect((err)=>{
   if(err) throw err;
   console.log("Connected to MySQL Server");
 })
-conn.query("USE sonoo",function(err,result){
+conn.query("USE dedsec",function(err,result){
   if(err) throw err;
-  console.log("Using database sonoo");
+  console.log("Using database dedsec");
 });
 
 module.exports.signup = (req,res) => {
