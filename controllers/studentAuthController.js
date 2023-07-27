@@ -7,20 +7,14 @@ const mysql=require('mysql2');
 require('dotenv').config()
 // Authentication middleware
 
-const conn=mysql.createConnection({
-  host:"localhost",
-  user:process.env.USER,
-  password:process.env.PASSWORD,
-  
-  multipleStatements: true // enable multiple statements
-});
+const conn=mysql.createConnection(process.env.DATABASE_URL);
 conn.connect((err)=>{
   if(err) throw err;
   console.log("Connected to MySQL Server");
 })
-conn.query("USE sonoo",function(err,result){
+conn.query("USE dedsec",function(err,result){
   if(err) throw err;
-  console.log("Using database sonoo");
+  console.log("Using database dedsec");
 });
 
 module.exports.login = (req, res) => {
