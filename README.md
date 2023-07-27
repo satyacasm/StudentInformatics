@@ -22,7 +22,7 @@ This is a student registration system designed for an institute using MySQL, Nod
 - CSS
 
 
-Deployed at http://13.200.50.201:3000/ 
+Deployed at https://student-informatics.onrender.com/
 Admin credentials=>
   email: xyz@example.com
   password: 12345678
