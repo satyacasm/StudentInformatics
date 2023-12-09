@@ -21,3 +21,8 @@ This is a student registration system designed for an institute using MySQL, Nod
 - HTML
 - CSS
 
+
+Deployed at https://student-informatics.onrender.com/
+Admin credentials=>
+  email: xyz@example.com
+  password: 12345678
