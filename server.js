@@ -45,3 +45,5 @@ app.get('/',auth,(req,res)=>{
     res.redirect('/admin/dashboard');
 })
 
+
+module.exports= app;
